@@ -51,7 +51,6 @@ from .types import (
     MAP_ICON_SET_LIST,
 )
 from .const import (
-    DEVICE_INFO,
     get_device_info,
     SUCTION_LEVEL_CODE_TO_NAME,
     WATER_VOLUME_CODE_TO_NAME,
