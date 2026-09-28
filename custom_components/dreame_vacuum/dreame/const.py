@@ -737,7 +737,10 @@ DEVICE_MODEL_ALIASES: Final = {
 
 @lru_cache(maxsize=1)
 def get_device_info():
-    """Return decoded device info with supported model aliases added."""
+    """Return decoded DEVICE_INFO as [devices, capabilities, keys, model_map].
+
+    The injected aliases are added only to index 3, the model-to-profile map.
+    """
     device_info = json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32))
     device_info[3] = {
         **device_info[3],
