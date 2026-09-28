@@ -2,7 +2,7 @@ import base64
 import json
 import zlib
 from functools import lru_cache
-from typing import Final
+from typing import Any, Final
 from .types import (
     DreameVacuumChargingStatus,
     DreameVacuumTaskStatus,
@@ -736,7 +736,7 @@ DEVICE_MODEL_ALIASES: Final = {
 
 
 @lru_cache(maxsize=1)
-def get_device_info():
+def get_device_info() -> list[Any]:
     """Return decoded DEVICE_INFO as [devices, capabilities, keys, model_map].
 
     The injected aliases are added only to index 3, the model-to-profile map.
