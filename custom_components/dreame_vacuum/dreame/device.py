@@ -173,6 +173,7 @@ from .const import (
     PROPERTY_TO_NAME,
     CLEANING_MODE_MOPPING_AFTER_SWEEPING,
     MOP_WASH_LEVEL_WATER_SAVING,
+    apply_device_info_model_aliases,
     MOP_CLEAN_FREQUENCY_BY_ROOM,
     MOP_CLEAN_FREQUENCY_FIVE_SQUARE_METERS,
     MOP_CLEAN_FREQUENCY_EIGHT_SQUARE_METERS,
@@ -636,7 +637,11 @@ class DreameVacuumDevice:
                 _LOGGER.debug("Property %s Not Available", DreameVacuumProperty(did).name)
 
         if not self.capability.loaded:
-            self.capability.load(json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32)))
+            self.capability.load(
+                apply_device_info_model_aliases(
+                    json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32))
+                )
+            )
             if self._map_manager:
                 self._map_manager.set_capability(self.capability)
 

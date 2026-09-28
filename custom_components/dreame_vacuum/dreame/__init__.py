@@ -51,7 +51,7 @@ from .types import (
     MAP_ICON_SET_LIST,
 )
 from .const import (
-    DEVICE_INFO,
+    apply_device_info_model_aliases,
     SUCTION_LEVEL_CODE_TO_NAME,
     WATER_VOLUME_CODE_TO_NAME,
     MOP_PAD_HUMIDITY_CODE_TO_NAME,
