@@ -737,6 +737,7 @@ DEVICE_MODEL_ALIASES: Final = {
 
 @lru_cache(maxsize=1)
 def get_device_info():
+    """Return decoded device info with supported model aliases added."""
     device_info = json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32))
     device_info[3] = {
         **device_info[3],
