@@ -52,6 +52,7 @@ from .types import (
 )
 from .const import (
     DEVICE_INFO,
+    get_device_info,
     SUCTION_LEVEL_CODE_TO_NAME,
     WATER_VOLUME_CODE_TO_NAME,
     MOP_PAD_HUMIDITY_CODE_TO_NAME,

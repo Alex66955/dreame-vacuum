@@ -1,11 +1,8 @@
 from __future__ import annotations
 import logging
 import time
-import json
 import re
 import copy
-import zlib
-import base64
 from functools import cmp_to_key
 from datetime import datetime
 from random import randrange
@@ -108,7 +105,6 @@ from .types import (
     ATTR_ACTIVE_CRUISE_POINTS,
 )
 from .const import (
-    DEVICE_INFO,
     STATE_UNKNOWN,
     SUCTION_LEVEL_CODE_TO_NAME,
     WATER_VOLUME_CODE_TO_NAME,
@@ -173,6 +169,7 @@ from .const import (
     PROPERTY_TO_NAME,
     CLEANING_MODE_MOPPING_AFTER_SWEEPING,
     MOP_WASH_LEVEL_WATER_SAVING,
+    get_device_info,
     MOP_CLEAN_FREQUENCY_BY_ROOM,
     MOP_CLEAN_FREQUENCY_FIVE_SQUARE_METERS,
     MOP_CLEAN_FREQUENCY_EIGHT_SQUARE_METERS,
@@ -636,7 +633,7 @@ class DreameVacuumDevice:
                 _LOGGER.debug("Property %s Not Available", DreameVacuumProperty(did).name)
 
         if not self.capability.loaded:
-            self.capability.load(json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32)))
+            self.capability.load(get_device_info())
             if self._map_manager:
                 self._map_manager.set_capability(self.capability)
 
