@@ -3,6 +3,9 @@
 from __future__ import annotations
 from typing import Any, Final
 import re
+import zlib
+import base64
+import json
 import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
 from collections.abc import Mapping
@@ -22,7 +25,7 @@ from homeassistant.config_entries import (
     OptionsFlow,
 )
 
-from .dreame import DreameVacuumProtocol, MAP_COLOR_SCHEME_LIST, MAP_ICON_SET_LIST, VERSION, get_device_info
+from .dreame import DreameVacuumProtocol, MAP_COLOR_SCHEME_LIST, MAP_ICON_SET_LIST, VERSION, apply_device_info_model_aliases
 
 from .const import (
     DOMAIN,
@@ -681,7 +684,9 @@ class DreameVacuumFlowHandler(ConfigFlow, domain=DOMAIN):
     def load_devices(self):
         if self.models is None:
             self.models = {}
-            device_info = get_device_info()
+            device_info = apply_device_info_model_aliases(
+                json.loads(zlib.decompress(base64.b64decode(DEVICE_INFO), zlib.MAX_WBITS | 32))
+            )
             for k in device_info[3]:
                 info = device_info[0][device_info[3][k]]
                 if info:
